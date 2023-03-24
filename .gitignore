@@ -1,0 +1,6 @@
+.vs/
+.idea/
+__pycache__/
+allure-report/
+reports/allure/*
+!reports/allure/.gitkeep

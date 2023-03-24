@@ -1,0 +1,7 @@
+allure-behave
+behave
+behave-webdriver
+pyyaml
+selenium
+unittest2
+assertpy

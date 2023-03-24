@@ -1,0 +1,51 @@
+trigger:
+- none
+
+pool:
+  vmImage: 'ubuntu-22.04'
+
+steps:
+
+- script: |
+    pip install -r requirements.txt
+    sudo apt-get update
+    sudo apt-get install -y default-jre
+    sudo apt-get install -y zip
+    sudo apt-get install -y wget
+    sudo apt-get install -y ca-certificates
+    sudo apt-get install -y libnss3-dev libasound2 libxss1 libappindicator3-1 gconf-service 
+    sudo apt-get install -y libgconf-2-4 libpango1.0-0 xdg-utils fonts-liberation libgbm1 libu2f-udev
+
+    sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb 
+    sudo dpkg -i google-chrome*.deb
+    sudo rm google-chrome*.deb
+
+    sudo version=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
+    sudo wget -N https://chromedriver.storage.googleapis.com/${version}/chromedriver_linux64.zip
+    sudo unzip chromedriver_linux64.zip
+    sudo chmod +x chromedriver
+    sudo cp chromedriver /usr/local/bin
+    sudo rm chromedriver_linux64.zip
+    sudo rm chromedriver
+
+    sudo curl -o allure-2.21.0.tgz -OLs https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.21.0/allure-commandline-2.21.0.tgz
+    sudo tar -zxvf allure-2.21.0.tgz -C /opt/
+    sudo ln -s /opt/allure-2.21.0/bin/allure /usr/bin/allure
+
+    sudo chromedriver -v
+    sudo java -version
+    sudo allure --version
+  displayName: 'Verify Chromedriver Allure'
+  continueOnError: true
+
+- script: |
+    behave -f allure_behave.formatter:AllureFormatter -o ./reports/allure  ./features
+    allure generate ./reports/allure
+    cd $(System.DefaultWorkingDirectory)/reports/allure
+    zip -r ../reports-allure-$(build.buildnumber).zip *
+  displayName: 'E2E Testing'
+  continueOnError: true
+
+- publish: $(System.DefaultWorkingDirectory)/reports/reports-allure-$(build.buildnumber).zip
+  artifact: Allure-Report
+  displayName: 'Artifacts'

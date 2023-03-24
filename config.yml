@@ -1,0 +1,26 @@
+env:
+
+  # Base url
+  base_url: "http://localhost:8000/index.php"
+
+  # Login credentials
+  username: "admin"
+  password: "1234"
+
+  # Browser name and version
+  browser: chrome
+  version: 111.0
+
+  # Default timeout for fetching elements
+  element_fetch_timeout: 30
+
+  # Implicit timeout
+  implicit_timeout: 15
+
+  use_grid: False
+
+  selenium_grid_ip: 127.0.0.1
+
+  selenium_grid_port: 4444
+
+  number_of_days_to_keep_log_files: 7

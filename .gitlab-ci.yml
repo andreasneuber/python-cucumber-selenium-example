@@ -1,0 +1,32 @@
+image: python:3.9.16
+
+before_script:
+  - chmod +x pipeline-assets/scripts/*
+  - pipeline-assets/scripts/install-basic-libraries.sh
+  - pipeline-assets/scripts/install-chrome-browser.sh
+  - pipeline-assets/scripts/install-chrome-driver.sh
+  - pipeline-assets/scripts/install-allure.sh
+
+stages:
+  - check_chromedriver_allure
+  - testing
+
+verify-chromedriver-allure:
+  stage: check_chromedriver_allure
+  script:
+  - chromedriver -v
+  - java -version
+  - allure --version
+
+e2e-testing:
+  stage: testing
+  script:
+     - behave -f allure_behave.formatter:AllureFormatter -o ./reports/allure  ./features
+  after_script:
+    - allure generate ./reports/allure
+  artifacts:
+    when: always
+    expire_in: 4 days
+    paths:
+      - allure-report/
+
