@@ -1,5 +1,9 @@
 # python-cucumber-selenium-framework
-Sample implementation for Python Behave
+Sample implementation of Python Behave
+
+## Application under test
+The feature files, step definitions and page objects were written for https://github.com/andreasneuber/automatic-test-sample-site.
+Readme in that repo has further details how to set it up.
 
 ## Setup
 `pip install -r requirements.txt`
@@ -32,7 +36,7 @@ Sample implementation for Python Behave
 `behave --tags=verticalTableLong`
 
 ## Run locally with Allure reports
-On Windows install Allure: `scoop install allure`
+Install Allure: https://docs.qameta.io/allure/#_get_started
 
 `behave -f allure_behave.formatter:AllureFormatter -o ./reports/allure  ./features`
 
@@ -40,4 +44,3 @@ On Windows install Allure: `scoop install allure`
 
 ## Updating
 `pip install -U behave`
-
