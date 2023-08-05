@@ -1,4 +1,4 @@
-# python-cucumber-selenium-framework
+# python-cucumber-selenium-example
 Sample implementation of Python Behave
 
 ## Application under test
