@@ -11,27 +11,27 @@ Readme in that repo has further details how to set it up.
 ## Run specific tests locally
 `behave --tags=data_table`
 
-- or -
+or
 
 `behave --tags=inlineVars`
 
-- or -
+or
 
 `behave --tags=background`
 
-- or -
+or
 
 `behave --tags=scenarioOutline`
 
-- or -
+or
 
 `behave --tags=horizontalTable`
 
-- or -
+or
 
 `behave --tags=verticalTable`
 
-- or -
+or
 
 `behave --tags=verticalTableLong`
 
