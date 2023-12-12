@@ -1,18 +1,24 @@
 from selenium.webdriver import Chrome
+from selenium.webdriver.common.by import By
 
 
 class SalesPage:
     """Described 'LoginPage' page."""
 
+    HEADING_SALES = (By.XPATH, "//h2[contains(text(),'Sales - Statistics')]")
+    HEADING_YEAR_MONTH = (By.CSS_SELECTOR, ".sales.header-year-month")
+    CELL_MONTH = "//td[contains(text(), '%s')]"
+    CELL_SALES_AMOUNT = "//td[contains(text(), '%s')]/following-sibling::td"
+
     def __init__(self, driver: Chrome, config):
         self.url = config['env']['base_url'] + '?action=sales'
-        self._driver = driver
+        self.driver = driver
 
     def visit(self):
-        self._driver.get(self.url)
+        self.driver.get(self.url)
 
     def sales_stats_page_is_displayed(self):
-        element = self._driver.find_element_by_xpath("//h2[contains(text(),'Sales - Statistics')]")
+        element = self.driver.find_element(*self.HEADING_SALES)
         result = False
 
         if element.is_displayed():
@@ -21,11 +27,11 @@ class SalesPage:
         return result
 
     def grab_year_month_header(self):
-        return self._driver.find_element_by_css_selector(".sales.header-year-month").text
+        return self.driver.find_element(*self.HEADING_YEAR_MONTH).text
 
     def month_cell_is_displayed(self, month):
-        complete_xpath = "//td[contains(text(), '%s')]" % month
-        element = self._driver.find_element_by_xpath(complete_xpath)
+        complete_xpath = self.CELL_MONTH % month
+        element = self.driver.find_element(By.XPATH, complete_xpath)
         result = False
 
         if element.is_displayed():
@@ -34,5 +40,5 @@ class SalesPage:
         return result
 
     def grab_sales_amount_from_month(self, month):
-        complete_xpath = "//td[contains(text(), '%s')]/following-sibling::td" % month
-        return self._driver.find_element_by_xpath(complete_xpath).text
+        complete_xpath = self.CELL_SALES_AMOUNT % month
+        return self.driver.find_element(By.XPATH, complete_xpath).text

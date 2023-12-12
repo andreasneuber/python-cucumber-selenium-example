@@ -1,65 +1,68 @@
 from selenium.webdriver import Chrome
+from selenium.webdriver.common.by import By
 
 
 class ProvideYourDetailsPage:
     """Described 'ProvideYourDetailsPage' page."""
 
+    INPUT_FNAME = (By.ID, "fname")
+    INPUT_LNAME = (By.ID, "lname")
+    INPUT_STREET = (By.ID, "street")
+    INPUT_CITY = (By.ID, "city")
+    INPUT_ZIP = (By.ID, "zip")
+    INPUT_STATE = (By.ID, "state")
+    INPUT_COUNTRY = (By.ID, "country")
+    INPUT_MOBILE = (By.ID, "mobile")
+    INPUT_HOME = (By.ID, "home")
+    INPUT_EMAIL = (By.ID, "email")
+    BTN_SUBMIT_INFO = (By.ID, "submit-info")
+
     def __init__(self, driver: Chrome, config):
         self.url = config['env']['base_url'] + '?action=form1'
-        self._driver = driver
+        self.driver = driver
 
     def visit(self):
-        self._driver.get(self.url)
+        self.driver.get(self.url)
 
     def provide_first_name(self, first_name):
-        element = self._driver.find_element_by_id("fname")
-        element.clear()
-        element.send_keys(first_name)
+        self.driver.find_element(*self.INPUT_FNAME).clear()
+        self.driver.find_element(*self.INPUT_FNAME).send_keys(first_name)
 
     def provide_last_name(self, last_name):
-        element = self._driver.find_element_by_id("lname")
-        element.clear()
-        element.send_keys(last_name)
+        self.driver.find_element(*self.INPUT_LNAME).clear()
+        self.driver.find_element(*self.INPUT_LNAME).send_keys(last_name)
 
     def provide_street(self, street):
-        element = self._driver.find_element_by_id("street")
-        element.clear()
-        element.send_keys(street)
+        self.driver.find_element(*self.INPUT_STREET).clear()
+        self.driver.find_element(*self.INPUT_STREET).send_keys(street)
 
     def provide_city(self, city):
-        element = self._driver.find_element_by_id("city")
-        element.clear()
-        element.send_keys(city)
+        self.driver.find_element(*self.INPUT_CITY).clear()
+        self.driver.find_element(*self.INPUT_CITY).send_keys(city)
 
     def provide_zip(self, zip_code):
-        element = self._driver.find_element_by_id("zip")
-        element.clear()
-        element.send_keys(zip_code)
+        self.driver.find_element(*self.INPUT_ZIP).clear()
+        self.driver.find_element(*self.INPUT_ZIP).send_keys(zip_code)
 
     def provide_state(self, state):
-        element = self._driver.find_element_by_id("state")
-        element.clear()
-        element.send_keys(state)
+        self.driver.find_element(*self.INPUT_STATE).clear()
+        self.driver.find_element(*self.INPUT_STATE).send_keys(state)
 
     def provide_country(self, country):
-        element = self._driver.find_element_by_id("country")
-        element.clear()
-        element.send_keys(country)
+        self.driver.find_element(*self.INPUT_COUNTRY).clear()
+        self.driver.find_element(*self.INPUT_COUNTRY).send_keys(country)
 
     def provide_mobile_phone_number(self, number):
-        element = self._driver.find_element_by_id("mobile")
-        element.clear()
-        element.send_keys(number)
+        self.driver.find_element(*self.INPUT_MOBILE).clear()
+        self.driver.find_element(*self.INPUT_MOBILE).send_keys(number)
 
     def provide_home_phone_number(self, number):
-        element = self._driver.find_element_by_id("home")
-        element.clear()
-        element.send_keys(number)
+        self.driver.find_element(*self.INPUT_HOME).clear()
+        self.driver.find_element(*self.INPUT_HOME).send_keys(number)
 
     def provide_email(self, email):
-        element = self._driver.find_element_by_id("email")
-        element.clear()
-        element.send_keys(email)
+        self.driver.find_element(*self.INPUT_EMAIL).clear()
+        self.driver.find_element(*self.INPUT_EMAIL).send_keys(email)
 
     def click_submit_your_information(self):
-        self._driver.find_element_by_id("submit-info").click()
+        self.driver.find_element(*self.BTN_SUBMIT_INFO).click()

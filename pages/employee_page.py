@@ -1,18 +1,26 @@
 from selenium.webdriver import Chrome
+from selenium.webdriver.common.by import By
 
 
 class EmployeePage:
     """Described 'EmployeePage' page."""
 
+    HEADING_HR = (By.XPATH, "//h2[contains(text(),'Human Resources - Find employee')]")
+    INPUT_EMPLOYEE_NAME = (By.ID, 'employee-name')
+    BTN_SEARCH = (By.ID, 'btnSearch')
+    EMPLOYEE_RECORD = (By.ID, 'employee-details')
+    EMPLOYEE_NAME = (By.CSS_SELECTOR, '.employee.name')
+    EMPLOYEE_DEPARTMENT = (By.CSS_SELECTOR, '.employee.department')
+
     def __init__(self, driver: Chrome, config):
         self.url = config['env']['base_url'] + '?action=employee'
-        self._driver = driver
+        self.driver = driver
 
     def visit(self):
-        self._driver.get(self.url)
+        self.driver.get(self.url)
 
     def employee_page_is_displayed(self):
-        element = self._driver.find_element_by_xpath("//h2[contains(text(),'Human Resources - Find employee')]")
+        element = self.driver.find_element(*self.HEADING_HR)
         result = False
 
         if element.is_displayed():
@@ -21,15 +29,14 @@ class EmployeePage:
         return result
 
     def fill_employee_name_input(self, employee_name):
-        element = self._driver.find_element_by_id("employee-name")
-        element.clear()
-        element.send_keys(employee_name)
+        self.driver.find_element(*self.INPUT_EMPLOYEE_NAME).clear()
+        self.driver.find_element(*self.INPUT_EMPLOYEE_NAME).send_keys(employee_name)
 
     def click_search_btn(self):
-        self._driver.find_element_by_id("btnSearch").click()
+        self.driver.find_element(*self.BTN_SEARCH).click()
 
     def employee_record_is_displayed(self):
-        element = self._driver.find_element_by_id("employee-details")
+        element = self.driver.find_element(*self.EMPLOYEE_RECORD)
         result = False
 
         if element.is_displayed():
@@ -38,7 +45,7 @@ class EmployeePage:
         return result
 
     def grab_employee_name(self):
-        return self._driver.find_element_by_css_selector(".employee.name").text
+        return self.driver.find_element(*self.EMPLOYEE_NAME).text
 
     def grab_department_name(self):
-        return self._driver.find_element_by_css_selector(".employee.department").text
+        return self.driver.find_element(*self.EMPLOYEE_DEPARTMENT).text

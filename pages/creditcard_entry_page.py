@@ -1,32 +1,35 @@
 from selenium.webdriver import Chrome
+from selenium.webdriver.common.by import By
 
 
 class CreditCardEntryPage:
     """Described 'CreditCardEntryPage' page."""
 
+    INPUT_CNAME = (By.ID, "cname")
+    INPUT_CCNUM = (By.ID, "ccnum")
+    INPUT_EXPDATE = (By.ID, "expdate")
+    INPUT_CVV = (By.ID, "cvv")
+    BTN_PAYNOW = (By.NAME, "paynow")
+
     def __init__(self, driver: Chrome, config):
         self.url = config['env']['base_url'] + '?action=form3'
-        self._driver = driver
+        self.driver = driver
 
     def visit(self):
-        self._driver.get(self.url)
+        self.driver.get(self.url)
 
     def enter_card_information(self, card_name, cc_number, expiry_date, cvv):
-        element = self._driver.find_element_by_id("cname")
-        element.clear()
-        element.send_keys(card_name)
+        self.driver.find_element(*self.INPUT_CNAME).clear()
+        self.driver.find_element(*self.INPUT_CNAME).send_keys(card_name)
 
-        element = self._driver.find_element_by_id("ccnum")
-        element.clear()
-        element.send_keys(cc_number)
+        self.driver.find_element(*self.INPUT_CCNUM).clear()
+        self.driver.find_element(*self.INPUT_CCNUM).send_keys(cc_number)
 
-        element = self._driver.find_element_by_id("expdate")
-        element.clear()
-        element.send_keys(expiry_date)
+        self.driver.find_element(*self.INPUT_EXPDATE).clear()
+        self.driver.find_element(*self.INPUT_EXPDATE).send_keys(expiry_date)
 
-        element = self._driver.find_element_by_id("cvv")
-        element.clear()
-        element.send_keys(cvv)
+        self.driver.find_element(*self.INPUT_CVV).clear()
+        self.driver.find_element(*self.INPUT_CVV).send_keys(cvv)
 
     def submit_payment(self):
-        self._driver.find_element_by_name("paynow").click()
+        self.driver.find_element(*self.BTN_PAYNOW).click()
