@@ -1,5 +1,6 @@
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
+from config.base import Config
 
 
 class ThankYouPage:
@@ -7,8 +8,8 @@ class ThankYouPage:
 
     HEADING = (By.TAG_NAME, "h2")
 
-    def __init__(self, driver: Chrome, config):
-        self.url = config['env']['base_url'] + '?action=thankYou'
+    def __init__(self, driver: Chrome):
+        self.url = Config.URL + '?action=thankYou'
         self.driver = driver
 
     def visit(self):

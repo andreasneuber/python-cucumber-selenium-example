@@ -1,5 +1,5 @@
-import os
-import yaml
+# import os
+# import yaml
 
 from selenium import webdriver
 
@@ -22,9 +22,9 @@ def before_all(context):
 
     context.error_message = "Element not found"
 
-    context.config = None
-    with open(os.getcwd() + os.path.sep + "config.yml", 'r') as ymlfile:
-        context.config = yaml.load(ymlfile, Loader=yaml.Loader)
+    # context.config = None
+    # with open(os.getcwd() + os.path.sep + "config.yml", 'r') as ymlfile:
+    #     context.config = yaml.load(ymlfile, Loader=yaml.Loader)
 
 
 def after_all(context):

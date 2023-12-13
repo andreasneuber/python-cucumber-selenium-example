@@ -8,29 +8,29 @@ from assertpy import assert_that
 
 @given("I navigate to login page")
 def step_impl(context):
-    context.login_page = LoginPage(context.browser, context.config)
+    context.login_page = LoginPage(context.browser)
     context.login_page.visit()
 
 
 @when('I submit username "{username}" and password "{password}"')
 def step_impl(context, username, password):
-    context.login_page = LoginPage(context.browser, context.config)
+    context.login_page = LoginPage(context.browser)
     context.login_page.login(username, password)
 
 
 @then("I will be logged into the Admin Dashboard")
 def step_impl(context):
-    context.user_account_page = UserAccountPage(context.browser, context.config)
+    context.user_account_page = UserAccountPage(context.browser)
     visible = context.user_account_page.admin_dashboard_is_displayed()
     assert_that(visible).is_true()
 
 
 @when('Admin searches for employee "{employee_name}"')
 def step_impl(context, employee_name):
-    context.user_account_page = UserAccountPage(context.browser, context.config)
+    context.user_account_page = UserAccountPage(context.browser)
     context.user_account_page.navigate_to_hr_section()
 
-    context.employee_page = EmployeePage(context.browser, context.config)
+    context.employee_page = EmployeePage(context.browser)
     visible = context.employee_page.employee_page_is_displayed()
     assert_that(visible).is_true()
 
@@ -40,7 +40,7 @@ def step_impl(context, employee_name):
 
 @then('information appears that employee "{expected_employee_name}" belongs to department "{expected_department_name}"')
 def step_impl(context, expected_employee_name, expected_department_name):
-    context.employee_page = EmployeePage(context.browser, context.config)
+    context.employee_page = EmployeePage(context.browser)
 
     visible = context.employee_page.employee_record_is_displayed
     assert_that(visible).is_true()
@@ -54,10 +54,10 @@ def step_impl(context, expected_employee_name, expected_department_name):
 
 @when('Admin looks up total sales amount for month "{month}" in year "{year}"')
 def step_impl(context, month, year):
-    context.user_account_page = UserAccountPage(context.browser, context.config)
+    context.user_account_page = UserAccountPage(context.browser)
     context.user_account_page.navigate_to_sales_section()
 
-    context.sales_page = SalesPage(context.browser, context.config)
+    context.sales_page = SalesPage(context.browser)
     visible = context.sales_page.sales_stats_page_is_displayed()
     assert_that(visible).is_true()
 
@@ -70,7 +70,7 @@ def step_impl(context, month, year):
 
 @then('the total "{month}" sales amount is "{expected_sales_amount}"')
 def step_impl(context, month, expected_sales_amount):
-    context.sales_page = SalesPage(context.browser, context.config)
+    context.sales_page = SalesPage(context.browser)
 
     actual_sales_amount = context.sales_page.grab_sales_amount_from_month(month)
     assert_that(actual_sales_amount).is_equal_to(expected_sales_amount)

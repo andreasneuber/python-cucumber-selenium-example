@@ -1,28 +1,32 @@
 from selenium.webdriver import Chrome
-from selenium.webdriver.common.by import By
+from seleniumpagefactory.Pagefactory import PageFactory
+from config.base import Config
 
 
-class LoginPage:
+class LoginPage(PageFactory):
     """Described 'LoginPage' page."""
 
-    INPUT_USERNAME = (By.NAME, "user")
-    INPUT_PASSWORD = (By.NAME, "pw")
-    BTN_LOGIN = (By.NAME, "Login")
+    locators = {
+        "input_username": ('NAME', 'user'),
+        "input_password": ('NAME', 'pw'),
+        "btn_login": ('NAME', 'Login')
+    }
 
-    def __init__(self, driver: Chrome, config):
-        self.url = config['env']['base_url'] + '?action=form4'
+    def __init__(self, driver: Chrome):
+        super().__init__()
+        self.url = Config.URL + '?action=form4'
         self.driver = driver
 
     def visit(self):
         self.driver.get(self.url)
 
     def provide_username(self, user_name):
-        self.driver.find_element(*self.INPUT_USERNAME).clear()
-        self.driver.find_element(*self.INPUT_USERNAME).send_keys(user_name)
+        self.input_username.clear()
+        self.input_username.send_keys(user_name)
 
     def provide_password(self, password):
-        self.driver.find_element(*self.INPUT_PASSWORD).clear()
-        self.driver.find_element(*self.INPUT_PASSWORD).send_keys(password)
+        self.input_password.clear()
+        self.input_password.send_keys(password)
 
     def login(self, user_name, password):
         self.provide_username(user_name)
@@ -30,4 +34,4 @@ class LoginPage:
         self.click_login()
 
     def click_login(self):
-        self.driver.find_element(*self.BTN_LOGIN).click()
+        self.btn_login.click()

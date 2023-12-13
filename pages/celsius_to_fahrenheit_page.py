@@ -1,27 +1,31 @@
 from selenium.webdriver import Chrome
-from selenium.webdriver.common.by import By
+from seleniumpagefactory.Pagefactory import PageFactory
+from config.base import Config
 
 
-class CelsiusToFahrenheitPage:
+class CelsiusToFahrenheitPage(PageFactory):
     """Described 'CelsiusToFahrenheit' page."""
 
-    INPUT_CELSIUS = (By.NAME, "celsius")
-    BTN_CELSIUS = (By.ID, "btnCelsius")
-    INPUT_FAHRENHEIT = (By.NAME, "fahrenheit")
+    locators = {
+        "input_celsius": ('NAME', 'celsius'),
+        "btn_celsius": ('ID', 'btnCelsius'),
+        "input_fahrenheit": ('NAME', 'fahrenheit'),
+    }
 
-    def __init__(self, driver: Chrome, config):
-        self.url = config['env']['base_url'] + '?action=form6'
+    def __init__(self, driver: Chrome):
+        super().__init__()
+        self.url = Config.URL + '?action=form6'
         self.driver = driver
 
     def visit(self):
         self.driver.get(self.url)
 
     def provide_celsius(self, celsius_degrees):
-        self.driver.find_element(*self.INPUT_CELSIUS).clear()
-        self.driver.find_element(*self.INPUT_CELSIUS).send_keys(celsius_degrees)
+        self.input_celsius.clear()
+        self.input_celsius.send_keys(celsius_degrees)
 
     def click_convert(self):
-        self.driver.find_element(*self.BTN_CELSIUS).click()
+        self.btn_celsius.click()
 
     def read_fahrenheit_field(self):
-        return self.driver.find_element(*self.INPUT_FAHRENHEIT).get_attribute("value")
+        return self.input_fahrenheit.get_attribute("value")

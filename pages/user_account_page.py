@@ -1,6 +1,8 @@
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 
+from config.base import Config
+
 
 class UserAccountPage:
     """Described 'UserAccountPage' page."""
@@ -9,8 +11,8 @@ class UserAccountPage:
     LINK_HR_SECTION = (By.ID, "hr-resources-link")
     LINK_SALES_SECTION = (By.ID, "sales-statistics-link")
 
-    def __init__(self, driver: Chrome, config):
-        self.url = config['env']['base_url'] + '?action=useraccount'
+    def __init__(self, driver: Chrome):
+        self.url = Config.URL + '?action=useraccount'
         self.driver = driver
 
     def visit(self):

@@ -1,5 +1,6 @@
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
+from config.base import Config
 
 
 class CreditCardEntryPage:
@@ -11,8 +12,8 @@ class CreditCardEntryPage:
     INPUT_CVV = (By.ID, "cvv")
     BTN_PAYNOW = (By.NAME, "paynow")
 
-    def __init__(self, driver: Chrome, config):
-        self.url = config['env']['base_url'] + '?action=form3'
+    def __init__(self, driver: Chrome):
+        self.url = Config.URL + '?action=form3'
         self.driver = driver
 
     def visit(self):

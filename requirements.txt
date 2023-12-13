@@ -3,6 +3,7 @@ behave
 behave-webdriver
 pyyaml
 selenium
+selenium-page-factory
 unittest2
 assertpy
 urllib3<2.0.2

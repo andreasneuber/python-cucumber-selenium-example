@@ -1,6 +1,8 @@
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 
+from config.base import Config
+
 
 class ProvideYourDetailsPage:
     """Described 'ProvideYourDetailsPage' page."""
@@ -17,8 +19,8 @@ class ProvideYourDetailsPage:
     INPUT_EMAIL = (By.ID, "email")
     BTN_SUBMIT_INFO = (By.ID, "submit-info")
 
-    def __init__(self, driver: Chrome, config):
-        self.url = config['env']['base_url'] + '?action=form1'
+    def __init__(self, driver: Chrome):
+        self.url = Config.URL + '?action=form1'
         self.driver = driver
 
     def visit(self):

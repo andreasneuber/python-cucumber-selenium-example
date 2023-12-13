@@ -1,5 +1,6 @@
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
+from config.base import Config
 
 
 class EmployeePage:
@@ -12,8 +13,8 @@ class EmployeePage:
     EMPLOYEE_NAME = (By.CSS_SELECTOR, '.employee.name')
     EMPLOYEE_DEPARTMENT = (By.CSS_SELECTOR, '.employee.department')
 
-    def __init__(self, driver: Chrome, config):
-        self.url = config['env']['base_url'] + '?action=employee'
+    def __init__(self, driver: Chrome):
+        self.url = Config.URL + '?action=employee'
         self.driver = driver
 
     def visit(self):

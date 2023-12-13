@@ -44,3 +44,8 @@ Install Allure: https://docs.qameta.io/allure/#_get_started
 
 ## Updating
 `pip install -U behave`
+
+### See also
+https://github.com/the-creative-tester/python-behave-web-browser-automation-example
+
+https://selenium-page-factory.readthedocs.io/en/latest/

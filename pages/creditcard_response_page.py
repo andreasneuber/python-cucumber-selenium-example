@@ -1,6 +1,8 @@
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 
+from config.base import Config
+
 
 class CreditCardResponsePage:
     """Described 'CreditCardResponsePage' page."""
@@ -9,8 +11,8 @@ class CreditCardResponsePage:
     RESPONSE_TXT = (By.XPATH, "//strong[@class='response']")
     MORE_INFO_TXT = (By.CLASS_NAME, 'more-info')
 
-    def __init__(self, driver: Chrome, config):
-        self.url = config['env']['base_url'] + '?action=responsecc'
+    def __init__(self, driver: Chrome):
+        self.url = Config.URL + '?action=responsecc'
         self.driver = driver
 
     def visit(self):

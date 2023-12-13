@@ -1,5 +1,6 @@
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
+from config.base import Config
 
 
 class SalesPage:
@@ -10,8 +11,8 @@ class SalesPage:
     CELL_MONTH = "//td[contains(text(), '%s')]"
     CELL_SALES_AMOUNT = "//td[contains(text(), '%s')]/following-sibling::td"
 
-    def __init__(self, driver: Chrome, config):
-        self.url = config['env']['base_url'] + '?action=sales'
+    def __init__(self, driver: Chrome):
+        self.url = Config.URL + '?action=sales'
         self.driver = driver
 
     def visit(self):
