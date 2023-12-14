@@ -1,19 +1,22 @@
 from selenium.webdriver import Chrome
-from selenium.webdriver.common.by import By
+from seleniumpagefactory.Pagefactory import PageFactory
 from config.base import Config
 
 
-class EmployeePage:
+class EmployeePage(PageFactory):
     """Described 'EmployeePage' page."""
 
-    HEADING_HR = (By.XPATH, "//h2[contains(text(),'Human Resources - Find employee')]")
-    INPUT_EMPLOYEE_NAME = (By.ID, 'employee-name')
-    BTN_SEARCH = (By.ID, 'btnSearch')
-    EMPLOYEE_RECORD = (By.ID, 'employee-details')
-    EMPLOYEE_NAME = (By.CSS_SELECTOR, '.employee.name')
-    EMPLOYEE_DEPARTMENT = (By.CSS_SELECTOR, '.employee.department')
+    locators = {
+        "heading_hr": ('XPATH', "//h2[contains(text(),'Human Resources - Find employee')]"),
+        "input_employee_name": ('ID', "employee-name"),
+        "btn_search": ('ID', "btnSearch"),
+        "employee_record": ('ID', "employee-details"),
+        "employee_name": ('CSS', ".employee.name"),
+        "employee_department": ('CSS', ".employee.department"),
+    }
 
     def __init__(self, driver: Chrome):
+        super().__init__()
         self.url = Config.URL + '?action=employee'
         self.driver = driver
 
@@ -21,32 +24,20 @@ class EmployeePage:
         self.driver.get(self.url)
 
     def employee_page_is_displayed(self):
-        element = self.driver.find_element(*self.HEADING_HR)
-        result = False
-
-        if element.is_displayed():
-            result = True
-
-        return result
+        return True if self.heading_hr.is_displayed() else False
 
     def fill_employee_name_input(self, employee_name):
-        self.driver.find_element(*self.INPUT_EMPLOYEE_NAME).clear()
-        self.driver.find_element(*self.INPUT_EMPLOYEE_NAME).send_keys(employee_name)
+        self.input_employee_name.clear()
+        self.input_employee_name.send_keys(employee_name)
 
     def click_search_btn(self):
-        self.driver.find_element(*self.BTN_SEARCH).click()
+        self.btn_search.click()
 
     def employee_record_is_displayed(self):
-        element = self.driver.find_element(*self.EMPLOYEE_RECORD)
-        result = False
-
-        if element.is_displayed():
-            result = True
-
-        return result
+        return True if self.employee_record.is_displayed() else False
 
     def grab_employee_name(self):
-        return self.driver.find_element(*self.EMPLOYEE_NAME).text
+        return self.employee_name.text
 
     def grab_department_name(self):
-        return self.driver.find_element(*self.EMPLOYEE_DEPARTMENT).text
+        return self.employee_department.text

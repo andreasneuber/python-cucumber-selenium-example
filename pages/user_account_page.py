@@ -1,17 +1,20 @@
 from selenium.webdriver import Chrome
-from selenium.webdriver.common.by import By
+from seleniumpagefactory import PageFactory
 
 from config.base import Config
 
 
-class UserAccountPage:
+class UserAccountPage(PageFactory):
     """Described 'UserAccountPage' page."""
 
-    HEADING_ADMIN_DASHBOARD = (By.XPATH, "//h2[contains(text(),'Admin Dashboard')]")
-    LINK_HR_SECTION = (By.ID, "hr-resources-link")
-    LINK_SALES_SECTION = (By.ID, "sales-statistics-link")
+    locators = {
+        "heading_admin_dashboard": ('XPATH', "//h2[contains(text(),'Admin Dashboard')]"),
+        "link_hr_section": ('ID', "hr-resources-link"),
+        "link_sales_section": ('ID', "sales-statistics-link"),
+    }
 
     def __init__(self, driver: Chrome):
+        super().__init__()
         self.url = Config.URL + '?action=useraccount'
         self.driver = driver
 
@@ -19,16 +22,10 @@ class UserAccountPage:
         self.driver.get(self.url)
 
     def admin_dashboard_is_displayed(self):
-        element = self.driver.find_element(*self.HEADING_ADMIN_DASHBOARD)
-        result = False
-
-        if element.is_displayed():
-            result = True
-
-        return result
+        return True if self.heading_admin_dashboard.is_displayed() else False
 
     def navigate_to_hr_section(self):
-        self.driver.find_element(*self.LINK_HR_SECTION).click()
+        self.link_hr_section.click()
 
     def navigate_to_sales_section(self):
-        self.driver.find_element(*self.LINK_SALES_SECTION).click()
+        self.link_sales_section.click()

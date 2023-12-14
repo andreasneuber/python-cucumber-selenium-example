@@ -1,17 +1,25 @@
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
+from seleniumpagefactory import PageFactory
+
 from config.base import Config
 
 
-class SalesPage:
+class SalesPage(PageFactory):
     """Described 'LoginPage' page."""
 
-    HEADING_SALES = (By.XPATH, "//h2[contains(text(),'Sales - Statistics')]")
-    HEADING_YEAR_MONTH = (By.CSS_SELECTOR, ".sales.header-year-month")
-    CELL_MONTH = "//td[contains(text(), '%s')]"
-    CELL_SALES_AMOUNT = "//td[contains(text(), '%s')]/following-sibling::td"
+    locators = {
+        "heading_sales": ('XPATH', "//h2[contains(text(),'Sales - Statistics')]"),
+        "heading_year_month": ('CSS', ".sales.header-year-month"),
+    }
+
+    raw_locators = {
+        "cell_month": "//td[contains(text(), '%s')]",
+        "cell_sales_amount": "//td[contains(text(), '%s')]/following-sibling::td",
+    }
 
     def __init__(self, driver: Chrome):
+        super().__init__()
         self.url = Config.URL + '?action=sales'
         self.driver = driver
 
@@ -19,27 +27,16 @@ class SalesPage:
         self.driver.get(self.url)
 
     def sales_stats_page_is_displayed(self):
-        element = self.driver.find_element(*self.HEADING_SALES)
-        result = False
-
-        if element.is_displayed():
-            result = True
-
-        return result
+        return True if self.heading_sales.is_displayed() else False
 
     def grab_year_month_header(self):
-        return self.driver.find_element(*self.HEADING_YEAR_MONTH).text
+        return self.heading_year_month.text
 
     def month_cell_is_displayed(self, month):
-        complete_xpath = self.CELL_MONTH % month
+        complete_xpath = self.raw_locators['cell_month'] % month
         element = self.driver.find_element(By.XPATH, complete_xpath)
-        result = False
-
-        if element.is_displayed():
-            result = True
-
-        return result
+        return True if element.is_displayed() else False
 
     def grab_sales_amount_from_month(self, month):
-        complete_xpath = self.CELL_SALES_AMOUNT % month
+        complete_xpath = self.raw_locators['cell_sales_amount'] % month
         return self.driver.find_element(By.XPATH, complete_xpath).text

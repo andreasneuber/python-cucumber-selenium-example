@@ -1,17 +1,19 @@
 from selenium.webdriver import Chrome
-from selenium.webdriver.common.by import By
-
+from seleniumpagefactory.Pagefactory import PageFactory
 from config.base import Config
 
 
-class CreditCardResponsePage:
+class CreditCardResponsePage(PageFactory):
     """Described 'CreditCardResponsePage' page."""
 
-    ALERT_BOX = (By.XPATH, "//div[contains(@class, 'alert')]")
-    RESPONSE_TXT = (By.XPATH, "//strong[@class='response']")
-    MORE_INFO_TXT = (By.CLASS_NAME, 'more-info')
+    locators = {
+        "alert_box": ('XPATH', "//div[contains(@class, 'alert')]"),
+        "response_txt": ('XPATH', "//strong[@class='response']"),
+        "more_info_txt": ('CLASS_NAME', 'more-info'),
+    }
 
     def __init__(self, driver: Chrome):
+        super().__init__()
         self.url = Config.URL + '?action=responsecc'
         self.driver = driver
 
@@ -19,16 +21,10 @@ class CreditCardResponsePage:
         self.driver.get(self.url)
 
     def alert_message_box_is_displayed(self):
-        element = self.driver.find_element(*self.ALERT_BOX)
-        result = False
-
-        if element.is_displayed():
-            result = True
-
-        return result
+        return True if self.alert_box.is_displayed() else False
 
     def grab_response_from_alert_box(self):
-        return self.driver.find_element(*self.RESPONSE_TXT).text
+        return self.response_txt.text
 
     def grab_more_info_from_alert_box(self):
-        return self.driver.find_element(*self.MORE_INFO_TXT).text
+        return self.more_info_txt.text

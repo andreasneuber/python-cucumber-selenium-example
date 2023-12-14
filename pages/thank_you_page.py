@@ -1,14 +1,18 @@
 from selenium.webdriver import Chrome
-from selenium.webdriver.common.by import By
+from seleniumpagefactory import PageFactory
+
 from config.base import Config
 
 
-class ThankYouPage:
+class ThankYouPage(PageFactory):
     """Described 'ThankYouPage' page."""
 
-    HEADING = (By.TAG_NAME, "h2")
+    locators = {
+        "heading": ("tag", 'h2'),
+    }
 
     def __init__(self, driver: Chrome):
+        super().__init__()
         self.url = Config.URL + '?action=thankYou'
         self.driver = driver
 
@@ -16,4 +20,4 @@ class ThankYouPage:
         self.driver.get(self.url)
 
     def grab_thank_you_message(self):
-        return self.driver.find_element(*self.HEADING).text
+        return self.heading.text

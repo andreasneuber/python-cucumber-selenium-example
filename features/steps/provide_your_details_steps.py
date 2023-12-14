@@ -1,19 +1,14 @@
 from behave import *
-from pages.provide_your_details_page import ProvideYourDetailsPage
-from pages.thank_you_page import ThankYouPage
 from assertpy import assert_that
 
 
 @given("I navigate to Information about yourself page")
 def step_impl(context):
-    context.provide_your_details_page = ProvideYourDetailsPage(context.browser)
     context.provide_your_details_page.visit()
 
 
 @when("I provide the following details")
 def step_impl(context):
-    context.provide_your_details_page = ProvideYourDetailsPage(context.browser)
-
     for row in context.table:
         if row["field"] == "firstname":
             context.provide_your_details_page.provide_first_name(row["value"])
@@ -43,6 +38,5 @@ def step_impl(context):
 
 @then('I will see message "{expected_message}"')
 def step_impl(context, expected_message):
-    context.thank_you_page = ThankYouPage(context.browser)
     actual_message = context.thank_you_page.grab_thank_you_message()
     assert_that(actual_message).is_equal_to(expected_message)
