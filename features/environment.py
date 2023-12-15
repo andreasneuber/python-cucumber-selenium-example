@@ -1,4 +1,5 @@
-from selenium import webdriver
+from features.driverfactory import SeleniumDriverFactory
+from config.base import Config
 from pages.celsius_to_fahrenheit_page import CelsiusToFahrenheitPage
 from pages.creditcard_entry_page import CreditCardEntryPage
 from pages.creditcard_response_page import CreditCardResponsePage
@@ -11,22 +12,10 @@ from pages.user_account_page import UserAccountPage
 
 
 def before_all(context):
-    options = webdriver.ChromeOptions()
+    driver_factory = SeleniumDriverFactory(Config.BROWSER)
+    context.browser = driver_factory.get_driver()
 
-    # Optimized for local development
-    options.add_argument("--start-maximized")
-    options.add_argument("--no-sandbox")
-
-    # Optimized for running tests in CI pipelines
-    # options.add_argument("--start-maximized")
-    # options.add_argument("--no-sandbox")
-    # options.add_argument('--window-size=1420,1080')
-    # options.add_argument('--headless')
-    # options.add_argument('--disable-gpu')
-
-    context.browser = webdriver.Chrome(chrome_options=options)
-    context.error_message = "Element not found"
-
+    # Pages
     context.celsius_to_fahrenheit_page = CelsiusToFahrenheitPage(context.browser)
     context.credit_card_entry_page = CreditCardEntryPage(context.browser)
     context.credit_card_response_page = CreditCardResponsePage(context.browser)
