@@ -42,7 +42,10 @@ Install Allure: https://docs.qameta.io/allure/#_get_started
 
 `allure serve reports/allure`
 
-## Updating
+## More Configuration Possibilities
+https://behave.readthedocs.io/en/stable/behave.html#configuration-files
+
+## Updating Behave
 `pip install -U behave`
 
 ### See also
