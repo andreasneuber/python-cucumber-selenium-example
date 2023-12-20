@@ -1,4 +1,3 @@
-from selenium.webdriver import Chrome
 from seleniumpagefactory.Pagefactory import PageFactory
 from config.base import Config
 
@@ -15,7 +14,7 @@ class EmployeePage(PageFactory):
         "employee_department": ('CSS', ".employee.department"),
     }
 
-    def __init__(self, driver: Chrome):
+    def __init__(self, driver):
         super().__init__()
         self.url = Config.URL + '?action=employee'
         self.driver = driver

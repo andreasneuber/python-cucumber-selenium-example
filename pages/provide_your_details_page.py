@@ -1,4 +1,3 @@
-from selenium.webdriver import Chrome
 from seleniumpagefactory.Pagefactory import PageFactory
 from config.base import Config
 
@@ -20,7 +19,7 @@ class ProvideYourDetailsPage(PageFactory):
         "btn_submit_info": ('ID', 'submit-info'),
     }
 
-    def __init__(self, driver: Chrome):
+    def __init__(self, driver):
         super().__init__()
         self.url = Config.URL + '?action=form1'
         self.driver = driver

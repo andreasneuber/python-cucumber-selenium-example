@@ -1,4 +1,3 @@
-from selenium.webdriver import Chrome
 from seleniumpagefactory.Pagefactory import PageFactory
 from config.base import Config
 
@@ -14,7 +13,7 @@ class CreditCardEntryPage(PageFactory):
         "btn_paynow": ('NAME', 'paynow'),
     }
 
-    def __init__(self, driver: Chrome):
+    def __init__(self, driver):
         super().__init__()
         self.url = Config.URL + '?action=form3'
         self.driver = driver

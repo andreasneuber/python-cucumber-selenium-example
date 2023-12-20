@@ -1,4 +1,3 @@
-from selenium.webdriver import Chrome
 from seleniumpagefactory.Pagefactory import PageFactory
 from config.base import Config
 
@@ -12,7 +11,7 @@ class CreditCardResponsePage(PageFactory):
         "more_info_txt": ('CLASS_NAME', 'more-info'),
     }
 
-    def __init__(self, driver: Chrome):
+    def __init__(self, driver):
         super().__init__()
         self.url = Config.URL + '?action=responsecc'
         self.driver = driver

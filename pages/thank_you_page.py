@@ -1,6 +1,4 @@
-from selenium.webdriver import Chrome
 from seleniumpagefactory import PageFactory
-
 from config.base import Config
 
 
@@ -11,7 +9,7 @@ class ThankYouPage(PageFactory):
         "heading": ("tag", 'h2'),
     }
 
-    def __init__(self, driver: Chrome):
+    def __init__(self, driver):
         super().__init__()
         self.url = Config.URL + '?action=thankYou'
         self.driver = driver

@@ -1,4 +1,3 @@
-from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 from seleniumpagefactory import PageFactory
 
@@ -18,7 +17,7 @@ class SalesPage(PageFactory):
         "cell_sales_amount": "//td[contains(text(), '%s')]/following-sibling::td",
     }
 
-    def __init__(self, driver: Chrome):
+    def __init__(self, driver):
         super().__init__()
         self.url = Config.URL + '?action=sales'
         self.driver = driver
