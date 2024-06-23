@@ -59,8 +59,6 @@ https://behave.readthedocs.io/en/stable/behave.html#configuration-files
 
 ## Wait Mechanism
 Important subject - currently example uses functionality of the selenium-page-factory package.
-Please see also "Note" box [here](https://selenium-page-factory.readthedocs.io/en/latest/#extended-webelements-methods).
-
 
 ### See also
 https://github.com/the-creative-tester/python-behave-web-browser-automation-example
