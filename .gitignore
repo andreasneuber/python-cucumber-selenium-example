@@ -1,5 +1,6 @@
 .vs/
 .idea/
+.venv
 __pycache__/
 allure-report/
 reports/allure/*
