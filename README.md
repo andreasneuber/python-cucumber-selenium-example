@@ -5,8 +5,17 @@ Sample implementation of Python Behave
 The feature files, step definitions and page objects were written for https://github.com/andreasneuber/automatic-test-sample-site.
 Readme in that repo has further details how to set it up.
 
-## Setup
-`pip install -r requirements.txt`
+## Setup - Windows 11 machine
+- IDE used: PyCharm
+- Install Python, with Windows installer - https://www.python.org/downloads/windows/
+- In Pycharm set your new local Python executable as Interpreter
+- Create a virtual environment: `py -m venv .venv`
+- Activate virtual environment: `.venv\Scripts\activate`
+- Double-check virtual environment: `pip --version`
+- Install required Python packages: `pip install -r requirements.txt`
+
+## Run all tests locally
+`behave`
 
 ## Run specific tests locally
 `behave --tags=data_table`
