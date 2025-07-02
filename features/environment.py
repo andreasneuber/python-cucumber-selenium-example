@@ -12,19 +12,25 @@ from pages.user_account_page import UserAccountPage
 
 
 def before_all(context):
-    driver_factory = SeleniumDriverFactory(Config.BROWSER)
-    context.browser = driver_factory.get_driver()
+    try:
+        driver_factory = SeleniumDriverFactory(Config.BROWSER)
+        context.browser = driver_factory.get_driver()
 
-    # Pages
-    context.celsius_to_fahrenheit_page = CelsiusToFahrenheitPage(context.browser)
-    context.credit_card_entry_page = CreditCardEntryPage(context.browser)
-    context.credit_card_response_page = CreditCardResponsePage(context.browser)
-    context.employee_page = EmployeePage(context.browser)
-    context.login_page = LoginPage(context.browser)
-    context.provide_your_details_page = ProvideYourDetailsPage(context.browser)
-    context.sales_page = SalesPage(context.browser)
-    context.thank_you_page = ThankYouPage(context.browser)
-    context.user_account_page = UserAccountPage(context.browser)
+        # Pages
+        context.celsius_to_fahrenheit_page = CelsiusToFahrenheitPage(context.browser)
+        context.credit_card_entry_page = CreditCardEntryPage(context.browser)
+        context.credit_card_response_page = CreditCardResponsePage(context.browser)
+        context.employee_page = EmployeePage(context.browser)
+        context.login_page = LoginPage(context.browser)
+        context.provide_your_details_page = ProvideYourDetailsPage(context.browser)
+        context.sales_page = SalesPage(context.browser)
+        context.thank_you_page = ThankYouPage(context.browser)
+        context.user_account_page = UserAccountPage(context.browser)
+
+    except Exception as e:
+        print(f"[ERROR] Failed to initialize browser: {e}")
+        context.browser = None
+        raise
 
 
 def after_all(context):
