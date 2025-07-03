@@ -15,6 +15,7 @@ def before_all(context):
     try:
         driver_factory = SeleniumDriverFactory(Config.BROWSER)
         context.browser = driver_factory.get_driver()
+        init_pages(context, context.browser)
 
         # Pages
         context.celsius_to_fahrenheit_page = CelsiusToFahrenheitPage(context.browser)
@@ -33,8 +34,26 @@ def before_all(context):
         raise
 
 
+def init_pages(context, browser):
+    page_classes = {
+        'celsius_to_fahrenheit_page': CelsiusToFahrenheitPage,
+        'credit_card_entry_page': CreditCardEntryPage,
+        'credit_card_response_page': CreditCardResponsePage,
+        'employee_page': EmployeePage,
+        'login_page': LoginPage,
+        'provide_your_details_page': ProvideYourDetailsPage,
+        'sales_page': SalesPage,
+        'thank_you_page': ThankYouPage,
+        'user_account_page': UserAccountPage,
+    }
+
+    for name, cls in page_classes.items():
+        setattr(context, name, cls(browser))
+
+
 def after_all(context):
-    context.browser.quit()
+    if hasattr(context, "browser") and context.browser:
+        context.browser.quit()
     del context
 
 
