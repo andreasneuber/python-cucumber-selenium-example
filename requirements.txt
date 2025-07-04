@@ -2,8 +2,9 @@ allure-behave
 behave
 behave-webdriver
 pyyaml
-selenium
+selenium==4.32.0
 selenium-page-factory
 unittest2
 assertpy
-urllib3<2.5.0
+urllib3>=2.5.0
+grpcio==1.60.1
