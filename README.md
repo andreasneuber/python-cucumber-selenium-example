@@ -8,8 +8,8 @@ Readme in that repo has further details how to set it up.
 ## Setup - Windows 11 machine
 - IDE used: PyCharm
 - Install Python, with Windows installer - https://www.python.org/downloads/windows/
-- In Pycharm set your new local Python executable as Interpreter
 - Create a virtual environment: `py -m venv .venv`
+- In PyCharm set your new local Python executable as Interpreter
 - Activate virtual environment: `.venv\Scripts\activate`
 - Double-check virtual environment: `pip --version`
 - Install required Python packages: `pip install -r requirements.txt`
