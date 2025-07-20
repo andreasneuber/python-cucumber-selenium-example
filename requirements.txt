@@ -2,7 +2,7 @@ allure-behave
 behave
 behave-webdriver
 pyyaml
-selenium==4.32.0
+selenium>=4.6.0
 selenium-page-factory
 unittest2
 assertpy
