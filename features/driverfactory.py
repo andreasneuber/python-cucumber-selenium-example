@@ -3,6 +3,8 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.edge.options import Options as EdgeOptions
+from selenium.webdriver.edge.service import Service as EdgeService
 
 
 class SeleniumDriverFactory:
@@ -43,3 +45,14 @@ class SeleniumDriverFactory:
 
         service = ChromeService()
         return webdriver.Chrome(service=service, options=options)
+
+    def _get_edge_driver(self):
+        options = EdgeOptions()
+        options.add_argument("--start-maximized")
+        if self.headless:
+            options.add_argument("--headless")
+            options.add_argument("--disable-gpu")
+            options.add_argument("--window-size=1420,1080")
+
+        service = EdgeService()
+        return webdriver.Edge(service=service, options=options)
